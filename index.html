@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="main.css" />
+
+    <title>Character counter</title>
+  </head>
+
+  <body class="white-theme">
+    <div class="wrapper">
+      <header class="header-title">
+        <img src="./assets/images/logo-dark-theme.svg" />
+        <img src="./assets/images/icon-sun.svg" />
+      </header>
+
+      <header class="title">
+        <div>Analyze your text in real-time.</div>
+      </header>
+
+      <!-- main container-->
+      <section class="main-container">
+        <textarea placeholder="Start typing here… (or paste your text)">
+Start typing here… (or paste your text)
+        </textarea>
+
+        <div class="options-container">
+          <div class="exclude">
+            <div>
+              <input type="checkbox" id="spaces" />
+              <label for="spaces">Exclude Spaces</label>
+            </div>
+
+            <div>
+              <input type="checkbox" id="limit" />
+              <label for="limit">Set Character Limit</label>
+            </div>
+          </div>
+
+          <div class="reading-time">
+            Approx. reading time:<!-- Insert number -->
+            1 minutes
+          </div>
+        </div>
+      </section>
+
+      <!--stats and density container-->
+      <section class="stats-section">
+        <div class="counts-container">
+          <div class="stat-box char-count">
+            <!-- Insert number -->
+            <div class="start-value">278</div>
+            <div class="start-title">Total Characters</div>
+          </div>
+
+          <div class="stat-box word-count">
+            <!-- Insert number -->
+            <div class="start-value">39</div>
+            <div class="start-title">Word Count</div>
+          </div>
+
+          <div class="stat-box sentence-count">
+            <!-- Insert number -->
+            <div class="start-value">04</div>
+            <div class="start-title">Sentence Count</div>
+          </div>
+        </div>
+
+        <!--letter density-->
+        <div class="ld-container">
+          <div class="ld-title">Letter density</div>
+
+          <div class="ld-letter">
+            <span class="letter">E</span>
+            <div class="ld-percentage">
+              <div class="percentage" style="width: 16.06%"></div>
+            </div>
+            <span class="value">40(16.06%)</span>
+          </div>
+
+          <div class="ld-letter">
+            <span class="letter">I</span>
+            <div class="ld-percentage">
+              <div class="percentage" style="width: 11.65%"></div>
+            </div>
+            <span class="value">29(11.65%)</span>
+          </div>
+
+          <div class="ld-letter">
+            <span class="letter">T</span>
+            <div class="ld-percentage">
+              <div class="percentage" style="width: 11.24%"></div>
+            </div>
+            <span class="value">28(11.24%)</span>
+          </div>
+
+          <div class="ld-letter">
+            <span class="letter">O</span>
+            <div class="ld-percentage">
+              <div class="percentage" style="width: 8.84%"></div>
+            </div>
+            <span class="value">22(8.84%)</span>
+          </div>
+
+          <div class="ld-letter">
+            <span class="letter">N</span>
+            <div class="ld-percentage">
+              <div class="percentage" style="width: 8.43%"></div>
+            </div>
+            <span class="value">21(8.43%)</span>
+          </div>
+
+          <div style="height: 28px">
+            <button>See more</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

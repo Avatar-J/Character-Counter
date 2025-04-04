@@ -1,0 +1,241 @@
+@font-face {
+  font-family: boldFont;
+  src: url("./assets/fonts/DM_Sans/static/DMSans-Bold.ttf");
+}
+@font-face {
+  font-family: regularFont;
+  src: url("./assets/fonts/DM_Sans/static/DMSans-Regular.ttf");
+}
+@font-face {
+  font-family: semiFont;
+  src: url("./assets/fonts/DM_Sans/static/DMSans-SemiBold.ttf");
+}
+body {
+  background-image: url("./assets/images/bg-dark-theme.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center; */
+}
+.wrapper {
+  height: auto;
+  width: 1000px;
+  padding: 0% 15%;
+  /* margin: 0 auto; */
+}
+header,
+section {
+  width: 100%;
+  margin-bottom: 48px;
+}
+.counter-title {
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  font-family: semiFont;
+}
+.title {
+  height: 128px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.title div {
+  color: #f2f2f7;
+  font-size: 60px;
+  width: 60%;
+  text-align: center;
+  font-family: boldFont;
+}
+.textarea {
+  width: 100%;
+  padding-left: 2%;
+  padding-right: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.text {
+  background-color: #2a2b37;
+  height: 180px;
+  width: 100%;
+  color: #e4e4ef;
+  font-size: 20px;
+  padding: 20px;
+  margin-bottom: 12px;
+  font-family: regularFont;
+}
+
+.options-container {
+  height: 21px;
+  width: 100%;
+  color: #e4e4ef;
+  display: flex;
+  justify-content: space-between;
+  font-family: regularFont;
+  padding: 0 2%;
+}
+input {
+  accent-color: transparent !important;
+}
+.exclude {
+  display: flex;
+  gap: 24px;
+}
+.counts-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2%;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.stat-box {
+  height: 134px;
+  width: 27%;
+  border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #12131a;
+  padding: 16px;
+}
+.start-value {
+  height: 64px;
+  width: 288px;
+  font-size: 64px;
+  margin-bottom: 8px;
+  font-family: semiFont;
+}
+.start-title {
+  height: 28px;
+  width: 288px;
+  font-size: 20px;
+  font-family: regularFont;
+}
+.char-count {
+  background-color: #d3a0f4;
+  background-image: url("./assets/images/pattern-character-count.svg");
+  background-position: right -20px center;
+  background-repeat: no-repeat;
+}
+.word-count {
+  background-color: #ff9f00;
+  background-image: url("./assets/images/pattern-word-count.svg");
+  background-position: right -20px center;
+  background-repeat: no-repeat;
+}
+.sentence-count {
+  background-color: #fe8159;
+  background-image: url("./assets/images/pattern-sentence-count.svg");
+  background-position: right -20px center;
+  background-repeat: no-repeat;
+}
+.ld-container {
+  display: flex;
+  flex-direction: column;
+  width: 98%;
+  padding: 0 2%;
+}
+.ld-title {
+  color: #e4e4e5;
+  height: 31px;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-family: semiFont;
+}
+.ld-letter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 21px;
+  width: 100%;
+  font-family: regularFont;
+}
+.ld-letter span {
+  color: #e4e4e5;
+}
+.ld-percentage {
+  background-color: #21222c;
+  height: 12px;
+  width: 88%;
+  border-radius: 12px;
+  margin: 0 14px;
+}
+.percentage {
+  height: 100%;
+  background-color: #d3a0fa;
+  border-radius: 12px;
+}
+.letter {
+  width: 1.5%;
+}
+.value {
+  width: 8%;
+}
+button {
+  font-size: 20px;
+  margin-top: 20px;
+  background-color: transparent;
+  border: none;
+  color: #e4e4ef;
+  display: inline-block;
+  text-decoration: none;
+  width: 100px;
+  font-family: regularFont;
+}
+.see-more {
+  visibility: hidden;
+}
+/*for mobile phone*/
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    max-width: 600px;
+    padding: 0 30%;
+  }
+  .title {
+    text-align: center;
+    height: 60px;
+    padding: 20px;
+  }
+  .title div {
+    font-size: 40px;
+    text-align: center;
+    width: 70%;
+  }
+  .textarea {
+    width: 98%;
+  }
+  .options-container {
+    height: auto;
+    flex-direction: column;
+  }
+  .exclude {
+    flex-direction: column;
+    column-gap: 12px;
+    margin-bottom: 12px;
+  }
+  .counts-container {
+    flex-direction: column;
+    height: auto;
+    column-gap: 16px;
+    padding: 0 2%;
+  }
+  .stat-box {
+    height: 114px;
+    width: 93%;
+    margin-bottom: 20px;
+  }
+
+  .ld-container {
+    width: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}
