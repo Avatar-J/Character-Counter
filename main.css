@@ -97,8 +97,10 @@ textarea {
   font-family: regularFont;
   margin-bottom: 48px;
 }
-input {
-  accent-color: transparent !important;
+input[type="checkbox"] + label {
+  cursor: pointer;
+  display: inline-block;
+  line-height: 21px;
 }
 .exclude {
   display: flex;
@@ -120,6 +122,12 @@ input {
   justify-content: center;
   color: #12131a;
   padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.stat-box img {
+  position: absolute;
+  right: -30px;
 }
 .start-value {
   height: 64px;
@@ -135,21 +143,21 @@ input {
 }
 .char-count {
   background-color: #d3a0f4;
-  background-image: url("./assets/images/pattern-character-count.svg");
+  /* background-image: url("./assets/images/pattern-character-count.svg");
   background-position: right -20px center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 .word-count {
   background-color: #ff9f00;
-  background-image: url("./assets/images/pattern-word-count.svg");
+  /* background-image: url("./assets/images/pattern-word-count.svg");
   background-position: right -20px center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 .sentence-count {
   background-color: #fe8159;
-  background-image: url("./assets/images/pattern-sentence-count.svg");
+  /* background-image: url("./assets/images/pattern-sentence-count.svg");
   background-position: right -20px center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 .stats-section {
   flex-direction: column;
@@ -196,6 +204,7 @@ input {
 }
 .value {
   width: 8%;
+  text-align: right;
 }
 button {
   font-size: 20px;
@@ -207,6 +216,10 @@ button {
   text-decoration: none;
   width: 100px;
   font-family: regularFont;
+}
+.sm-btn {
+  height: 28px;
+  margin: 20px 0;
 }
 .see-more {
   visibility: hidden;
