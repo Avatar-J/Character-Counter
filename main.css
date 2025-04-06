@@ -97,8 +97,23 @@ button {
   background-color: transparent;
   border: none;
 }
-button:first-child {
+.nav-title > button:first-child {
   display: none;
+}
+.nav-title > :nth-child(2) {
+  display: none;
+}
+.dark-theme .nav-title > button:nth-child(2) {
+  display: none;
+}
+.dark-theme .nav-title > :first-child {
+  display: none;
+}
+.dark-theme .nav-title > button:nth-child(1) {
+  display: block;
+}
+.dark-theme .nav-title > :nth-child(2) {
+  display: block;
 }
 .title {
   height: 80px;
@@ -137,7 +152,11 @@ textarea {
 textarea:focus {
   /* border: 1px solid var(--purple); */
   outline: none;
-  box-shadow: 0 0 0 4px rgba(194, 114, 248, 0.6);
+  box-shadow: 0 0 6px 4px rgba(194, 114, 248, 0.6);
+}
+textarea::placeholder {
+  color: var(--font-color);
+  opacity: 1;
 }
 .options-container {
   height: 21px;
@@ -165,15 +184,12 @@ input[type="checkbox"] {
   border-radius: 4px;
   align-items: center;
   color: var(--font-color);
-  background-image: url("./assets/images/icon-check.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-}
-input[type="checkbox"]:hover {
-  background-color: var(--purple);
 }
 input[type="checkbox"]:checked {
   background-color: var(--purple);
+  background-image: url("./assets/images/icon-check.svg");
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .exclude {
   display: flex;
@@ -207,6 +223,7 @@ section {
   padding: 16px;
   position: relative;
   overflow: hidden;
+  font-size: var(--text-preset3);
 }
 .stat-box img {
   position: absolute;
@@ -280,6 +297,16 @@ section {
 .sm-btn {
   margin-top: 20px;
   height: 28px;
+  color: var(--font-color);
+}
+.sm-btn > :nth-child(1) {
+  display: none;
+}
+.dark-theme > .sm-btn > :nth-child(2) {
+  display: block;
+}
+.dark-theme > .sm-btn > :nth-child(1) {
+  display: none;
 }
 .see-more {
   visibility: hidden;
@@ -289,7 +316,7 @@ section {
     max-width: 600px;
   }
   .title {
-    height: 128px;
+    height: auto;
   }
   .title div {
     width: 60%;
@@ -310,9 +337,26 @@ section {
   .stat-box {
     width: 32%;
   }
+  .stat-box img {
+    right: -70px;
+  }
+  .start-value {
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+  }
+  .start-title {
+    position: absolute;
+    z-index: 2;
+    bottom: 20px;
+  }
 }
+
 @media only screen and (min-width: 1000px) {
   .wrapper {
     max-width: 1000px;
+  }
+  .stat-box img {
+    right: -30px;
   }
 }
