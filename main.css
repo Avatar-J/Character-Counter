@@ -171,7 +171,7 @@ textarea {
 }
 
 textarea:focus {
-  /* border: 1px solid var(--purple); */
+  border: 1.5px solid var(--purple);
   outline: none;
   box-shadow: 0 0 6px 4px rgba(194, 114, 248, 0.6);
 }
@@ -359,6 +359,10 @@ section {
 
 .see-more {
   visibility: hidden;
+}
+
+.hidden {
+  display: none;
 }
 
 @media only screen and (min-width: 768px) {
