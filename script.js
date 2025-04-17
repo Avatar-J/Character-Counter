@@ -226,8 +226,8 @@ window.addEventListener("DOMContentLoaded", function () {
       isSetCharacterLimitChecked = true;
     } else {
       limit = null;
-      // console.log("limit", limit);
-      // this.document.getElementById("limit-box").innerHTML = "";
+      console.log("limit", limit);
+      this.document.getElementById("limit-box").value = "";
       this.document.getElementById("limit-box").style.display = "none";
       isSetCharacterLimitChecked = false;
       errorStyleRemove();
