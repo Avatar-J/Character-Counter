@@ -186,6 +186,7 @@ textarea::placeholder {
   flex-direction: row;
   justify-content: left;
   color: #DA3701;
+  margin-bottom: 10px;
 }
 
 .error-state {

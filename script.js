@@ -190,6 +190,12 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function calculateReadingTime(words) {
+    const readingSpeed = 200;
+    const time = words / readingSpeed;
+    return Math.ceil(time);
+  }
+
   //event handlers
   excludeSpacesToggle.addEventListener("change", (event) => {
     if (event.target.checked) {
@@ -259,6 +265,9 @@ window.addEventListener("DOMContentLoaded", function () {
     sentenceCountContainer.textContent = padZero(sentenceCount);
 
     countLetters();
+
+    const approxReadingTime = calculateReadingTime(wordCount);
+    this.document.getElementById("approx-time").textContent = approxReadingTime;
 
     if (charCount > 0) {
       emptyText.innerHTML = "";
