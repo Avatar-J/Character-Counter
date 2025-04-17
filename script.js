@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", function () {
   const excludeSpacesToggle = document.getElementById("spaces");
   const setCharacterLimitToggle = document.getElementById("limit");
   const characterLimitContainer = document.getElementById("limit-box");
-  const errorMessageContainer = document.getElementById("error-message").style;
+  const errorMessageContainer = document.getElementById("error-message");
   const limitValueContainer = document.getElementById("limit-value");
   let limit = null;
   let isExcludeSpaceChecked = false;
@@ -40,6 +40,7 @@ window.addEventListener("DOMContentLoaded", function () {
   const restLetterDensityWrapper = this.document.getElementById(
     "rest-letter-density"
   );
+  const buttonContainer = document.querySelector(".sm-btn");
   let isSeeMoreClicked = false;
   const fiveLetterPercentages = {};
   const restLetterPercentages = {};
@@ -62,7 +63,7 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
   function errorStyleRemove() {
-    errorMessageContainer.display = "none";
+    errorMessageContainer.innerHTML = "";
     textArea.classList.remove("error-state");
     textArea.classList.add("text-area");
   }
@@ -72,8 +73,9 @@ window.addEventListener("DOMContentLoaded", function () {
     if (isSetCharacterLimitChecked) {
       if (limit != null) {
         if (count > limit) {
-          limitValueContainer.textContent = limit;
-          errorMessageContainer.display = "block";
+          // limitValueContainer.textContent = limit;
+          errorMessageContainer.innerHTML = `<img src="./assets/images/icon-info.svg" alt="info icon" width="14px" height="18px" />
+          <p>Limit reached! Your text exceeds <span id="limit-value">${limit}</span> characters</p>`;
           textArea.classList.add("error-state");
           textArea.classList.remove("text-area");
         } else {
@@ -93,12 +95,18 @@ window.addEventListener("DOMContentLoaded", function () {
     charCountContainer.textContent = padZero(charCount);
   }
 
+  function setMaxLength() {
+    if (isSetCharacterLimitChecked) {
+      textArea.setAttribute("maxlength", Number(limit) + 5);
+    } else {
+      textArea.removeAttribute("maxlength");
+    }
+  }
   //function to sort letter count in descending order
   function sortInDescendingOrder(obj) {
     let sortedObject = Object.fromEntries(
       Object.entries(obj).sort(([, a], [, b]) => b - a)
     );
-    console.log("sorted obj", sortedObject);
     return sortedObject;
   }
 
@@ -107,12 +115,6 @@ window.addEventListener("DOMContentLoaded", function () {
     const entries = Object.entries(obj);
     fiveLetterDensity = Object.fromEntries(entries.slice(0, 5));
     restLetterDensity = Object.fromEntries(entries.slice(5));
-    console.log(
-      "fiveletterdensity",
-      fiveLetterDensity,
-      "restletterdensity",
-      restLetterDensity
-    );
   }
 
   //function to calculate the letter density
@@ -123,7 +125,6 @@ window.addEventListener("DOMContentLoaded", function () {
         100
       ).toFixed(2);
     }
-    console.log("density percentage", halfPercentage);
   }
 
   //function to show letter density
@@ -149,7 +150,7 @@ window.addEventListener("DOMContentLoaded", function () {
   function countLetters() {
     if (textValue.trim() != "") {
       const converttoUpperCase = textValue.toUpperCase();
-      const letterFrequency = {};
+      let letterFrequency = {};
       totalCharacters = 0;
 
       for (let i = 0; i < converttoUpperCase.length; i++) {
@@ -163,6 +164,7 @@ window.addEventListener("DOMContentLoaded", function () {
           }
         }
       }
+
       letterFrequencySorted = sortInDescendingOrder(letterFrequency);
 
       divideLetterFrequency(letterFrequencySorted);
@@ -187,6 +189,12 @@ window.addEventListener("DOMContentLoaded", function () {
       } else {
         restLetterDensityWrapper.innerHTML = "";
       }
+    } else {
+      charCount = 0;
+      letterFrequency = {};
+      totalCharacters = 0;
+      fiveLetterDensity = {};
+      restLetterDensity = {};
     }
   }
 
@@ -213,15 +221,16 @@ window.addEventListener("DOMContentLoaded", function () {
       this.document.getElementById("limit-box").style.display = "block";
       isSetCharacterLimitChecked = true;
     } else {
+      limit = null;
       this.document.getElementById("limit-box").style.display = "none";
       isSetCharacterLimitChecked = false;
-      limit = null;
       errorStyleRemove();
     }
   });
 
   characterLimitContainer.addEventListener("input", (event) => {
     limit = event.target.value;
+    setMaxLength();
     displayErrorMessage(charCount);
   });
 
@@ -229,7 +238,9 @@ window.addEventListener("DOMContentLoaded", function () {
     isSeeMoreClicked = !isSeeMoreClicked;
     console.log("btn is clicked");
     if (isSeeMoreClicked) {
-      console.log("rest letter density percentage");
+      this.document.getElementById("see").innerHTML = "See less";
+      this.document.getElementById("up").style.display = "none";
+      this.document.getElementById("down").style.display = "block";
       calcLetterDensityPercentage(restLetterDensity, restLetterPercentages);
       renderLetterDensity(
         restLetterDensityWrapper,
@@ -239,6 +250,9 @@ window.addEventListener("DOMContentLoaded", function () {
       );
     } else {
       restLetterDensityWrapper.innerHTML = "";
+      this.document.getElementById("see").innerHTML = "See more";
+      this.document.getElementById("up").style.display = "block";
+      this.document.getElementById("down").style.display = "none";
     }
   });
 
@@ -266,11 +280,19 @@ window.addEventListener("DOMContentLoaded", function () {
 
     countLetters();
 
+    setMaxLength();
+
+    //calulate reading time in real time
     const approxReadingTime = calculateReadingTime(wordCount);
     this.document.getElementById("approx-time").textContent = approxReadingTime;
 
+    //show letter density section when text area is not empty
     if (charCount > 0) {
       emptyText.innerHTML = "";
+      buttonContainer.classList.remove("hidden");
+    } else {
+      emptyText.innerHTML = `<p>No characters found. Start typing to see letter density</p>`;
+      buttonContainer.classList.add("hidden");
     }
   });
 });

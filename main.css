@@ -181,10 +181,13 @@ textarea::placeholder {
   opacity: 1;
 }
 
-#error-message {
+
+.exceed-message {
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  gap: 10px;
+  justify-content: flex-start;
+  text-align: center;
   color: #DA3701;
   margin-bottom: 10px;
 }
@@ -195,7 +198,7 @@ textarea::placeholder {
 
 .error-state:focus {
   outline: none;
-  box-shadow: 0 0 6px 4px rgba(218, 55, 1, 0.4);
+  box-shadow: 0 0 6px 2px rgba(218, 55, 1, 0.2);
 }
 
 .options-container {
@@ -240,6 +243,7 @@ input[type="number"] {
   height: 29px;
   text-align: center;
   outline: none;
+  background-color: transparent;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -375,6 +379,10 @@ section {
   white-space: nowrap;
 }
 
+.hidden {
+  display: none;
+}
+
 .sm-btn {
   margin-top: 20px;
   height: 28px;
@@ -389,7 +397,8 @@ section {
 }
 
 .sm-btn span {
-  font-size: var(--text-preset3);
+  font-size: var(--text-preset4);
+  color: var(--font-color);
 }
 
 .sm-btn svg {
@@ -401,7 +410,10 @@ section {
 }
 
 #sm-btn-expand> :nth-child(3) {
-  background-color: red;
+  display: none;
+}
+
+.dark-theme #sm-btn-expand> :nth-child(3) {
   stroke: var(--font-color);
 }
 
