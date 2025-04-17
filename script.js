@@ -52,6 +52,8 @@ window.addEventListener("DOMContentLoaded", function () {
 
   //when you first load page and text area is empty
   const letterDensitySection = document.querySelector(".not-empty-textarea");
+  const emptyText = document.querySelector(".empty-textarea");
+
   //letterDensitySection.classList.add("hidden");
 
   //function to pad a number with zero if the digits are less than 2
@@ -182,6 +184,8 @@ window.addEventListener("DOMContentLoaded", function () {
           restLetterDensityHTML,
           restLetterPercentages
         );
+      } else {
+        restLetterDensityWrapper.innerHTML = "";
       }
     }
   }
@@ -216,7 +220,7 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   this.document.querySelector(".sm-btn").addEventListener("click", () => {
-    isSeeMoreClicked = true;
+    isSeeMoreClicked = !isSeeMoreClicked;
     console.log("btn is clicked");
     if (isSeeMoreClicked) {
       console.log("rest letter density percentage");
@@ -227,6 +231,8 @@ window.addEventListener("DOMContentLoaded", function () {
         restLetterDensityHTML,
         restLetterPercentages
       );
+    } else {
+      restLetterDensityWrapper.innerHTML = "";
     }
   });
 
@@ -253,23 +259,9 @@ window.addEventListener("DOMContentLoaded", function () {
     sentenceCountContainer.textContent = padZero(sentenceCount);
 
     countLetters();
+
+    if (charCount > 0) {
+      emptyText.innerHTML = "";
+    }
   });
-
-  const emptyText = document.querySelector(".empty-textarea");
-  let isEmptyTextHidden = emptyText.classList.contains("hidden");
-  let isLetterDensitySectionHidden =
-    letterDensitySection.classList.contains("hidden");
-
-  //display letter density percentage
-
-  // if (charCount != null) {
-  //   if (charCount.trim() === "") {
-  //     if (isEmptyTextHidden) {
-  //       emptyText.classList.remove("hidden");
-  //     }
-  //     if (!isLetterDensitySectionHidden) {
-  //       letterDensitySection.classList.add("hidden");
-  //     }
-  //   }
-  // }
 });

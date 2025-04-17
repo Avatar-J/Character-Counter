@@ -380,14 +380,14 @@ section {
   color: var(--font-color);
 }
 
-.svg-btn button {
+.sm-btn button {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
 
-.svg-btn span {
+.sm-btn span {
   font-size: var(--text-preset3);
 }
 
@@ -397,6 +397,11 @@ section {
 
 .sm-btn path {
   fill: var(--font-color);
+}
+
+#sm-btn-expand> :nth-child(3) {
+  background-color: red;
+  stroke: var(--font-color);
 }
 
 @media only screen and (min-width: 768px) {
