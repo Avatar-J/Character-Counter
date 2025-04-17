@@ -170,15 +170,31 @@ textarea {
   border: 1px solid var(--progress-bar-bg);
 }
 
-textarea:focus {
+.text-area:focus {
   border: 1.5px solid var(--purple);
   outline: none;
-  box-shadow: 0 0 6px 4px rgba(194, 114, 248, 0.6);
+  box-shadow: 0 0 6px 4px rgba(194, 114, 248, 0.4);
 }
 
 textarea::placeholder {
   color: var(--font-color);
   opacity: 1;
+}
+
+#error-message {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  color: #DA3701;
+}
+
+.error-state {
+  border: 1.5px solid rgb(218, 55, 1);
+}
+
+.error-state:focus {
+  outline: none;
+  box-shadow: 0 0 6px 4px rgba(218, 55, 1, 0.4);
 }
 
 .options-container {
@@ -190,18 +206,24 @@ textarea::placeholder {
   margin-bottom: var(--margin);
 }
 
-/* .checkbox {
+.checkbox {
   display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: center;
-} */
+  gap: 10px;
+}
+
 input[type="checkbox"],
+input[type="number"],
 label {
   cursor: pointer;
   display: inline-block;
   line-height: 21px;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="number"] {
   appearance: none;
   -webkit-appearance: none;
   border: 1px solid var(--font-color);
@@ -210,6 +232,19 @@ input[type="checkbox"] {
   border-radius: 4px;
   align-items: center;
   color: var(--font-color);
+}
+
+input[type="number"] {
+  width: 55px;
+  height: 29px;
+  text-align: center;
+  outline: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type="checkbox"]:checked {

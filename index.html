@@ -29,7 +29,12 @@
 
     <main>
       <section class="main-wrapper">
-        <textarea placeholder="Start typing here… (or paste your text)" id="text-area"></textarea>
+        <textarea placeholder="Start typing here… (or paste your text)" id="text-area" class="text-area"></textarea>
+
+        <div id="error-message" style="display: none;">
+          <img src="./assets/images/icon-info.svg" alt="info icon" />
+          <p>Limit reached! Your text exceeds <span id="limit-value"></span> characters</p>
+        </div>
 
         <div class="options-container">
           <div class="exclude">
@@ -41,6 +46,7 @@
             <div class="checkbox">
               <input type="checkbox" id="limit" />
               <label for="limit">Set Character Limit</label>
+              <input type="number" id="limit-box" style="display: none;" />
             </div>
           </div>
 
@@ -55,7 +61,7 @@
       <section class="stats-section">
         <div class="counts-container">
           <div class="stat-box char-count">
-            <img src="./assets/images/pattern-character-count.svg" />
+            <img src="./assets/images/pattern-character-count.svg" alt="character pattern" />
             <!-- Insert number -->
             <div class="start-value" id="char-count">00</div>
             <div class="start-title">Total Characters</div>
@@ -63,14 +69,14 @@
 
           <div class="stat-box word-count">
             <!-- Insert number -->
-            <img src="./assets/images/pattern-word-count.svg" />
+            <img src="./assets/images/pattern-word-count.svg" alt="word pattern" />
             <div class="start-value" id="word-count">00</div>
             <div class="start-title">Word Count</div>
           </div>
 
           <div class="stat-box sentence-count">
             <!-- Insert number -->
-            <img src="./assets/images/pattern-sentence-count.svg" />
+            <img src="./assets/images/pattern-sentence-count.svg" alt="sentence pattern" />
             <div class="start-value" id="sentence-count">00</div>
             <div class="start-title">Sentence Count</div>
           </div>
@@ -86,7 +92,7 @@
 
           <!--when text box has some inputs-->
           <div class="not-empty-textarea">
-            <div class="ld-letter">
+            <!-- <div class="ld-letter">
               <span class="letter">E</span>
               <div class="ld-percentage">
                 <div class="percentage" style="width: 16.06%"></div>
@@ -124,7 +130,7 @@
                 <div class="percentage" style="width: 8.43%"></div>
               </div>
               <span class="value">21(8.43%)</span>
-            </div>
+            </div> -->
 
             <div class="sm-btn">
               <svg width="990" height="28" viewBox="0 0 990 28" fill="none" xmlns="http://www.w3.org/2000/svg">
