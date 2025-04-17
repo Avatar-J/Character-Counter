@@ -257,10 +257,7 @@ window.addEventListener("DOMContentLoaded", function () {
   //listen for input in text area
   textArea.addEventListener("input", (event) => {
     textValue = event.target.value;
-    if (textValue.length <= 1 && textValue.trim() === "") {
-      textValue = "";
-    }
-    console.log(textValue);
+
     if (isExcludeSpaceChecked) {
       excludeSpaces();
     } else {
