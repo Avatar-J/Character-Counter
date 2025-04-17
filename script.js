@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", function () {
     isDarkActive = !isDarkActive;
   });
 
-  //text area section
+  //variables for text area section
   const textArea = document.getElementById("text-area");
   let textValue = textArea.value;
   const charCountContainer = document.getElementById("char-count");
@@ -32,6 +32,23 @@ window.addEventListener("DOMContentLoaded", function () {
   let isExcludeSpaceChecked = false;
   let isSetCharacterLimitChecked = false;
   let charCount = null;
+
+  //variables for letter density section
+  const fiveLetterDensityWrapper = this.document.getElementById(
+    "five-letter-density"
+  );
+  const restLetterDensityWrapper = this.document.getElementById(
+    "rest-letter-density"
+  );
+  let isSeeMoreClicked = false;
+  const fiveLetterPercentages = {};
+  const restLetterPercentages = {};
+  const fiveLetterDensityHTML = {};
+  const restLetterDensityHTML = {};
+  let fiveLetterDensity = {};
+  let restLetterDensity = {};
+  let letterFrequencySorted = {};
+  let totalCharacters = 0;
 
   //when you first load page and text area is empty
   const letterDensitySection = document.querySelector(".not-empty-textarea");
@@ -74,13 +91,64 @@ window.addEventListener("DOMContentLoaded", function () {
     charCountContainer.textContent = padZero(charCount);
   }
 
+  //function to sort letter count in descending order
+  function sortInDescendingOrder(obj) {
+    let sortedObject = Object.fromEntries(
+      Object.entries(obj).sort(([, a], [, b]) => b - a)
+    );
+    console.log("sorted obj", sortedObject);
+    return sortedObject;
+  }
+
+  //function to separate the see more letter density section
+  function divideLetterFrequency(obj) {
+    const entries = Object.entries(obj);
+    fiveLetterDensity = Object.fromEntries(entries.slice(0, 5));
+    restLetterDensity = Object.fromEntries(entries.slice(5));
+    console.log(
+      "fiveletterdensity",
+      fiveLetterDensity,
+      "restletterdensity",
+      restLetterDensity
+    );
+  }
+
+  //function to calculate the letter density
+  function calcLetterDensityPercentage(halfdensity, halfPercentage) {
+    for (const letter in halfdensity) {
+      halfPercentage[letter] = (
+        (halfdensity[letter] / totalCharacters) *
+        100
+      ).toFixed(2);
+    }
+    console.log("density percentage", halfPercentage);
+  }
+
+  //function to show letter density
+  function renderLetterDensity(htmlId, densityObj, densityHTML, percentageObj) {
+    htmlId.innerHTML = ""; // Clear previous content
+    for (const letter in densityObj) {
+      densityHTML[letter] = `
+              <div class="ld-letter">
+                <span class="letter">${letter}</span>
+                <div class="ld-percentage">
+                  <div class="percentage" style="width: ${percentageObj[letter]}%"></div>
+                </div>
+                <span class="value">${densityObj[letter]}(${percentageObj[letter]}%)</span>
+              </div>
+            `;
+    }
+    for (const letter in densityObj) {
+      htmlId.innerHTML += densityHTML[letter];
+    }
+  }
+
+  //function to count letters in the text
   function countLetters() {
     if (textValue.trim() != "") {
       const converttoUpperCase = textValue.toUpperCase();
       const letterFrequency = {};
-      const letterPercentages = {};
-      // const letterDensityHTML = {};
-      let totalCharacters = 0;
+      totalCharacters = 0;
 
       for (let i = 0; i < converttoUpperCase.length; i++) {
         const letter = converttoUpperCase[i];
@@ -93,39 +161,29 @@ window.addEventListener("DOMContentLoaded", function () {
           }
         }
       }
-      for (const letter in letterFrequency) {
-        letterPercentages[letter] = (
-          (letterFrequency[letter] / totalCharacters) *
-          100
-        ).toFixed(2);
-      }
+      letterFrequencySorted = sortInDescendingOrder(letterFrequency);
 
-      letterDensitySection.innerHTML = ""; // Clear previous content
-      let letterDensityHTML = "";
-      for (const letter in letterFrequency) {
+      divideLetterFrequency(letterFrequencySorted);
+
+      console.log("five letter density percentage");
+      calcLetterDensityPercentage(fiveLetterDensity, fiveLetterPercentages);
+      renderLetterDensity(
+        fiveLetterDensityWrapper,
+        fiveLetterDensity,
+        fiveLetterDensityHTML,
+        fiveLetterPercentages
+      );
+      if (isSeeMoreClicked) {
+        console.log("rest letter density percentage");
+        calcLetterDensityPercentage(restLetterDensity, restLetterPercentages);
         renderLetterDensity(
-          letter,
-          letterPercentages,
-          letterFrequency,
-          letterDensityHTML
+          restLetterDensityWrapper,
+          restLetterDensity,
+          restLetterDensityHTML,
+          restLetterPercentages
         );
       }
-      letterDensitySection.innerHTML = letterDensityHTML;
-      console.log("letter freq", letterFrequency);
-      console.log("percentages", letterPercentages);
     }
-  }
-  //function to render letter density percentage
-  function renderLetterDensity(aletter, aletterPercentages, aletterFrequency) {
-    letterDensityHTML += `
-    <div class="ld-letter">
-      <span class="letter">${aletter}</span>
-      <div class="ld-percentage">
-        <div class="percentage" style="width: ${aletterPercentages[aletter]}"></div>
-      </div>
-      <span class="value">${aletterFrequency[aletter]}(${aletterPercentages[aletter]})</span>
-    </div>
-   `;
   }
 
   //event handlers
@@ -157,6 +215,21 @@ window.addEventListener("DOMContentLoaded", function () {
     displayErrorMessage(charCount);
   });
 
+  this.document.querySelector(".sm-btn").addEventListener("click", () => {
+    isSeeMoreClicked = true;
+    console.log("btn is clicked");
+    if (isSeeMoreClicked) {
+      console.log("rest letter density percentage");
+      calcLetterDensityPercentage(restLetterDensity, restLetterPercentages);
+      renderLetterDensity(
+        restLetterDensityWrapper,
+        restLetterDensity,
+        restLetterDensityHTML,
+        restLetterPercentages
+      );
+    }
+  });
+
   //listen for input in text area
   textArea.addEventListener("input", (event) => {
     textValue = event.target.value;
@@ -181,8 +254,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
     countLetters();
   });
-
-  //letter density section
 
   const emptyText = document.querySelector(".empty-textarea");
   let isEmptyTextHidden = emptyText.classList.contains("hidden");

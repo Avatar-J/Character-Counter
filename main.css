@@ -380,24 +380,23 @@ section {
   color: var(--font-color);
 }
 
-.sm-btn> :nth-child(1) {
-  display: none;
+.svg-btn button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.dark-theme>.sm-btn> :nth-child(2) {
-  display: block;
+.svg-btn span {
+  font-size: var(--text-preset3);
 }
 
-.dark-theme>.sm-btn> :nth-child(1) {
-  display: none;
+.sm-btn svg {
+  stroke: var(--font-color);
 }
 
-.see-more {
-  visibility: hidden;
-}
-
-.hidden {
-  display: none;
+.sm-btn path {
+  fill: var(--font-color);
 }
 
 @media only screen and (min-width: 768px) {
