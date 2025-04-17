@@ -169,7 +169,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
       divideLetterFrequency(letterFrequencySorted);
 
-      console.log("five letter density percentage");
       calcLetterDensityPercentage(fiveLetterDensity, fiveLetterPercentages);
       renderLetterDensity(
         fiveLetterDensityWrapper,
@@ -178,7 +177,6 @@ window.addEventListener("DOMContentLoaded", function () {
         fiveLetterPercentages
       );
       if (isSeeMoreClicked) {
-        console.log("rest letter density percentage");
         calcLetterDensityPercentage(restLetterDensity, restLetterPercentages);
         renderLetterDensity(
           restLetterDensityWrapper,
@@ -259,7 +257,10 @@ window.addEventListener("DOMContentLoaded", function () {
   //listen for input in text area
   textArea.addEventListener("input", (event) => {
     textValue = event.target.value;
-
+    if (textValue.length <= 1 && textValue.trim() === "") {
+      textValue = "";
+    }
+    console.log(textValue);
     if (isExcludeSpaceChecked) {
       excludeSpaces();
     } else {

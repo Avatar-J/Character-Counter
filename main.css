@@ -190,6 +190,7 @@ textarea::placeholder {
   text-align: center;
   color: #DA3701;
   margin-bottom: 10px;
+  margin-left: -37rem;
 }
 
 .error-state {
