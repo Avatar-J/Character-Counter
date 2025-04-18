@@ -270,6 +270,7 @@ input[type="checkbox"]:checked {
   /* margin-left: -24rem; */
   gap: 15px;
   margin-bottom: 15px;
+  align-items: flex-start;
 }
 
 .reading-time span::before {
