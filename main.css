@@ -190,7 +190,7 @@ textarea::placeholder {
   text-align: center;
   color: #DA3701;
   margin-bottom: 10px;
-  margin-left: -37rem;
+
 }
 
 .error-state {
@@ -203,7 +203,7 @@ textarea::placeholder {
 }
 
 .options-container {
-  height: 21px;
+  min-height: 21px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -216,8 +216,12 @@ textarea::placeholder {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
 }
+
+/* .checkbox:nth-child(1) {
+  margin-left: -2rem;
+} */
 
 input[type="checkbox"],
 input[type="number"],
@@ -263,6 +267,7 @@ input[type="checkbox"]:checked {
 .exclude {
   display: flex;
   flex-direction: column;
+  /* margin-left: -24rem; */
   gap: 15px;
   margin-bottom: 15px;
 }
@@ -427,6 +432,10 @@ section {
     height: auto;
   }
 
+  #limit-box {
+    margin-right: 17px;
+  }
+
   .title div {
     width: 60%;
     font-size: var(--text-preset1);
@@ -435,16 +444,23 @@ section {
   .options-container {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
 
   .exclude {
     flex-direction: row;
     margin-bottom: 0px;
+    margin-left: 0rem;
   }
+
 
   .counts-container {
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .exceed-message {
+    margin-left: -12rem;
   }
 
   .stat-box {
@@ -472,6 +488,14 @@ section {
   .wrapper {
     width: 100%;
     max-width: 1000px;
+  }
+
+  .exceed-message {
+    margin-left: -37rem;
+  }
+
+  #limit-box {
+    margin-right: 0px;
   }
 
   .stat-box img {
