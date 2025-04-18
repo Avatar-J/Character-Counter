@@ -170,10 +170,10 @@ textarea {
   border: 1px solid var(--progress-bar-bg);
 }
 
-textarea:focus {
-  /* border: 1px solid var(--purple); */
+.text-area:focus {
+  border: 1.5px solid var(--purple);
   outline: none;
-  box-shadow: 0 0 6px 4px rgba(194, 114, 248, 0.6);
+  box-shadow: 0 0 6px 4px rgba(194, 114, 248, 0.4);
 }
 
 textarea::placeholder {
@@ -181,8 +181,29 @@ textarea::placeholder {
   opacity: 1;
 }
 
+
+.exceed-message {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: flex-start;
+  text-align: center;
+  color: #DA3701;
+  margin-bottom: 10px;
+
+}
+
+.error-state {
+  border: 1.5px solid rgb(218, 55, 1);
+}
+
+.error-state:focus {
+  outline: none;
+  box-shadow: 0 0 6px 2px rgba(218, 55, 1, 0.2);
+}
+
 .options-container {
-  height: 21px;
+  min-height: 21px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -190,18 +211,28 @@ textarea::placeholder {
   margin-bottom: var(--margin);
 }
 
-/* .checkbox {
+.checkbox {
   display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: center;
+  gap: 8px;
+}
+
+/* .checkbox:nth-child(1) {
+  margin-left: -2rem;
 } */
+
 input[type="checkbox"],
+input[type="number"],
 label {
   cursor: pointer;
   display: inline-block;
   line-height: 21px;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="number"] {
   appearance: none;
   -webkit-appearance: none;
   border: 1px solid var(--font-color);
@@ -210,6 +241,20 @@ input[type="checkbox"] {
   border-radius: 4px;
   align-items: center;
   color: var(--font-color);
+}
+
+input[type="number"] {
+  width: 55px;
+  height: 29px;
+  text-align: center;
+  outline: none;
+  background-color: transparent;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type="checkbox"]:checked {
@@ -222,8 +267,10 @@ input[type="checkbox"]:checked {
 .exclude {
   display: flex;
   flex-direction: column;
+  /* margin-left: -24rem; */
   gap: 15px;
   margin-bottom: 15px;
+  align-items: flex-start;
 }
 
 .reading-time span::before {
@@ -339,26 +386,42 @@ section {
   white-space: nowrap;
 }
 
+.hidden {
+  display: none;
+}
+
 .sm-btn {
   margin-top: 20px;
   height: 28px;
   color: var(--font-color);
 }
 
-.sm-btn> :nth-child(1) {
+.sm-btn button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.sm-btn span {
+  font-size: var(--text-preset4);
+  color: var(--font-color);
+}
+
+.sm-btn svg {
+  stroke: var(--font-color);
+}
+
+.sm-btn path {
+  fill: var(--font-color);
+}
+
+#sm-btn-expand> :nth-child(3) {
   display: none;
 }
 
-.dark-theme>.sm-btn> :nth-child(2) {
-  display: block;
-}
-
-.dark-theme>.sm-btn> :nth-child(1) {
-  display: none;
-}
-
-.see-more {
-  visibility: hidden;
+.dark-theme #sm-btn-expand> :nth-child(3) {
+  stroke: var(--font-color);
 }
 
 @media only screen and (min-width: 768px) {
@@ -370,6 +433,10 @@ section {
     height: auto;
   }
 
+  #limit-box {
+    margin-right: 17px;
+  }
+
   .title div {
     width: 60%;
     font-size: var(--text-preset1);
@@ -378,16 +445,23 @@ section {
   .options-container {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
 
   .exclude {
     flex-direction: row;
     margin-bottom: 0px;
+    margin-left: 0rem;
   }
+
 
   .counts-container {
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .exceed-message {
+    margin-left: -12rem;
   }
 
   .stat-box {
@@ -415,6 +489,14 @@ section {
   .wrapper {
     width: 100%;
     max-width: 1000px;
+  }
+
+  .exceed-message {
+    margin-left: -37rem;
+  }
+
+  #limit-box {
+    margin-right: 0px;
   }
 
   .stat-box img {
