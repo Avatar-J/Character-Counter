@@ -32,6 +32,8 @@ window.addEventListener("DOMContentLoaded", function () {
   let isExcludeSpaceChecked = false;
   let isSetCharacterLimitChecked = false;
   let charCount = null;
+  let isLimitSet = false;
+  let spacecount = 0;
 
   //variables for letter density section
   const fiveLetterDensityWrapper = this.document.getElementById(
@@ -88,17 +90,27 @@ window.addEventListener("DOMContentLoaded", function () {
   function excludeSpaces() {
     charCount = textValue.replace(/\s+/g, "").length;
     charCountContainer.textContent = padZero(charCount);
+    spacecount = textValue.length - charCount;
+    setMaxLength();
   }
 
   function includeSpaces() {
+    spacecount = 0;
     charCount = textValue.length;
     charCountContainer.textContent = padZero(charCount);
+    setMaxLength();
   }
-  //set a maxlength for the text area
+  //set a maxlength for the text area and allows user to exceed by 1 letters
   function setMaxLength() {
     if (isSetCharacterLimitChecked) {
-      textArea.setAttribute("maxlength", Number(limit) + 5);
+      if (limit == null) {
+        textArea.removeAttribute("maxlength");
+      } else {
+        console.log("maxlength", Number(limit) + 1 + spacecount);
+        textArea.setAttribute("maxlength", Number(limit) + 1 + spacecount);
+      }
     } else {
+      console.log("char limt", isSetCharacterLimitChecked);
       textArea.removeAttribute("maxlength");
     }
   }
@@ -230,6 +242,7 @@ window.addEventListener("DOMContentLoaded", function () {
       this.document.getElementById("limit-box").value = "";
       this.document.getElementById("limit-box").style.display = "none";
       isSetCharacterLimitChecked = false;
+      setMaxLength();
       errorStyleRemove();
     }
   });
@@ -237,7 +250,7 @@ window.addEventListener("DOMContentLoaded", function () {
   characterLimitContainer.addEventListener("input", (event) => {
     limit = event.target.value;
     console.log("limit", limit);
-    //setMaxLength();
+    setMaxLength();
     displayErrorMessage(charCount);
   });
 
@@ -287,7 +300,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     countLetters();
 
-    //setMaxLength();
+    setMaxLength();
 
     //calulate reading time in real time
     const approxReadingTime = calculateReadingTime(wordCount);
