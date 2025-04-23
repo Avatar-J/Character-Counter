@@ -1,16 +1,16 @@
 @font-face {
   font-family: boldFont;
-  src: url("./assets/fonts/DM_Sans/static/DMSans-Bold.ttf");
+  src: url("../assets/fonts/DM_Sans/static/DMSans-Bold.ttf");
 }
 
 @font-face {
   font-family: regularFont;
-  src: url("./assets/fonts/DM_Sans/static/DMSans-Regular.ttf");
+  src: url("../assets/fonts/DM_Sans/static/DMSans-Regular.ttf");
 }
 
 @font-face {
   font-family: semiFont;
-  src: url("./assets/fonts/DM_Sans/static/DMSans-SemiBold.ttf");
+  src: url("../assets/fonts/DM_Sans/static/DMSans-SemiBold.ttf");
 }
 
 :root {
@@ -35,11 +35,11 @@
 
 .dark-theme {
   --font-color: #e4e4ef;
-  --bg-img: url("./assets/images/bg-dark-theme.png");
-  --logo: url("./assets/images/logo-dark-theme.svg");
+  --bg-img: url("../assets/images/bg-dark-theme.png");
+  --logo: url("../assets/images/logo-dark-theme.svg");
   --progress-bar-bg: #21222c;
   --textarea-bg: #2a2b37;
-  --theme-btn: url("./assets/images/icon-sun.svg");
+  --theme-btn: url("../assets/images/icon-sun.svg");
 }
 
 * {
@@ -259,7 +259,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="checkbox"]:checked {
   background-color: var(--purple);
-  background-image: url("./assets/images/icon-check.svg");
+  background-image: url("../assets/images/icon-check.svg");
   background-position: center;
   background-repeat: no-repeat;
 }
