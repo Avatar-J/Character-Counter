@@ -15,6 +15,10 @@ let isExcludeSpaceChecked = false;
 let isSetCharacterLimitChecked = false;
 let limit = "";
 
+if (errorMessageContainer) {
+  errorMessageContainer.style.display = "none";
+}
+// errorMessageContainer.style.display = "none";
 //background theme change
 const themeSwitch = document.getElementById("theme-switch");
 
@@ -28,12 +32,20 @@ themeSwitch?.addEventListener("click", () => {
 });
 
 //set max length of text area
-function setMaxLength(textArea, limit, isSetCharacterLimitChecked) {
+function setMaxLength(
+  textArea,
+  limit,
+  isSetCharacterLimitChecked,
+  isExcludeSpaceChecked
+) {
   if (isSetCharacterLimitChecked) {
     if (limit === "") {
       textArea.removeAttribute("maxlength");
     } else {
-      const spacecount = countSpaceExcluded(textArea.value);
+      const spacecount = countSpaceExcluded(
+        textArea.value,
+        isExcludeSpaceChecked
+      );
       textArea.setAttribute("maxlength", Number(limit) + 1 + spacecount);
     }
   } else {
@@ -75,8 +87,10 @@ function countCharacters(textValue, isSpaceExcluded) {
 }
 
 //count space excluded
-function countSpaceExcluded(textValue) {
-  const spaceExcluded = textValue.split(" ").length - 1;
+function countSpaceExcluded(textValue, isExcludeSpaceChecked) {
+  const spaceExcluded = isExcludeSpaceChecked
+    ? textValue.length - textValue.replace(/\s+/g, "").length
+    : 0;
   return spaceExcluded;
 }
 
@@ -95,14 +109,50 @@ function calculateReadingTime(words) {
 }
 //test area outline for error state
 function errorStyleRemove() {
-  errorMessageContainer.innerHTML = "";
+  errorMessageContainer.style.display = "none";
   textArea.classList.remove("error-state");
   textArea.classList.add("text-area");
+}
+//function to display error message when limit is exceeded
+function displayErrorMessage(
+  textValue,
+  isSetCharacterLimitChecked,
+  isSpaceExcluded,
+  limit
+) {
+  const count = countCharacters(textValue, isSpaceExcluded);
+
+  if (isSetCharacterLimitChecked) {
+    if (limit !== "") {
+      if (count > limit) {
+        limitValueContainer.textContent = limit;
+        errorMessageContainer.style.display = "block";
+        textArea.classList.add("error-state");
+        textArea.classList.remove("text-area");
+      } else {
+        errorStyleRemove();
+      }
+    } else {
+      errorStyleRemove();
+    }
+  }
 }
 //event handlers on checkboxes
 excludeSpacesToggle?.addEventListener("change", (event) => {
   isExcludeSpaceChecked = event.target.checked;
   updateCharCounter(textValue, isExcludeSpaceChecked);
+  setMaxLength(
+    textArea,
+    limit,
+    isSetCharacterLimitChecked,
+    isExcludeSpaceChecked
+  );
+  displayErrorMessage(
+    textValue,
+    isSetCharacterLimitChecked,
+    isExcludeSpaceChecked,
+    limit
+  );
 });
 
 setCharacterLimitToggle?.addEventListener("change", (event) => {
@@ -114,15 +164,30 @@ setCharacterLimitToggle?.addEventListener("change", (event) => {
     document.getElementById("limit-box").value = "";
     document.getElementById("limit-box").style.display = "none";
     isSetCharacterLimitChecked = false;
-    setMaxLength(textArea, limit, isSetCharacterLimitChecked);
+    setMaxLength(
+      textArea,
+      limit,
+      isSetCharacterLimitChecked,
+      isExcludeSpaceChecked
+    );
     errorStyleRemove();
   }
 });
 
 characterLimitContainer?.addEventListener("input", (event) => {
   limit = event.target.value;
-  setMaxLength(textArea, limit, isSetCharacterLimitChecked);
-  displayErrorMessage(charCount);
+  setMaxLength(
+    textArea,
+    limit,
+    isSetCharacterLimitChecked,
+    isExcludeSpaceChecked
+  );
+  displayErrorMessage(
+    textValue,
+    isSetCharacterLimitChecked,
+    isExcludeSpaceChecked,
+    limit
+  );
 });
 
 //listen for input in text area
@@ -137,6 +202,14 @@ textArea?.addEventListener("input", (event) => {
   //display the reading time
   this.document.getElementById("approx-time").textContent =
     calculateReadingTime(countWords(textValue));
+
+  //check if limit is exceeded and display warning message
+  displayErrorMessage(
+    textValue,
+    isSetCharacterLimitChecked,
+    isExcludeSpaceChecked,
+    limit
+  );
 });
 
 module.exports = {
@@ -144,4 +217,5 @@ module.exports = {
   countWords,
   countSentences,
   countCharacters,
+  calculateReadingTime,
 };

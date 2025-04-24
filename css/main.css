@@ -187,7 +187,7 @@ textarea::placeholder {
   flex-direction: row;
   gap: 10px;
   justify-content: flex-start;
-  text-align: center;
+  align-items: start;
   color: #DA3701;
   margin-bottom: 10px;
 
