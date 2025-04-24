@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png" />
-  <link rel="stylesheet" href="../css/main.css" />
-
-  <title>Character counter</title>
-</head>
+const body = `
 
 <body>
   <div class="wrapper">
@@ -125,5 +114,6 @@
   <!-- <script src="../scripts/script.js"></script> -->
   <script src="../scripts/index.js"></script>
 </body>
+`;
 
-</html>
+module.exports = body;

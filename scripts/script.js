@@ -76,7 +76,7 @@ window.addEventListener("DOMContentLoaded", function () {
       if (limit != null) {
         if (count > limit) {
           // limitValueContainer.textContent = limit;
-          errorMessageContainer.innerHTML = `<img src="./assets/images/icon-info.svg" alt="info icon" width="14px" height="18px" />
+          errorMessageContainer.innerHTML = `<img src="../assets/images/icon-info.svg" alt="info icon" width="14px" height="18px" />
           <p>Limit reached! Your text exceeds <span id="limit-value">${limit}</span> characters</p>`;
           textArea.classList.add("error-state");
           textArea.classList.remove("text-area");
@@ -316,3 +316,5 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+module.exports = { setMaxLength };
