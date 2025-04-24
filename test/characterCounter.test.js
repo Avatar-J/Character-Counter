@@ -37,7 +37,7 @@ describe("setting the maxlength attribute of text area", () => {
 
   test("sets the maxlength when setCharacterlimit is checked  ", () => {
     const textArea = document.getElementById("text-area");
-    setMaxLength(textArea, 50, 0, true);
+    setMaxLength(textArea, 50, true);
     expect(textArea.hasAttribute("maxlength")).toBeTruthy();
     expect(textArea.getAttribute("maxlength")).toBe("51");
   });
@@ -66,26 +66,26 @@ describe("Test should correctly count words, characters and sentences", () => {
 
   //when space is included
   test("test for character count with space included", () => {
-    expect(countCharacters("I want to be a millonaire", false, 0)).toBe(25);
+    expect(countCharacters("I want to be a millonaire", false)).toBe(25);
   });
 
   //when space is excluded
   test("test for character count with space excluded", () => {
-    expect(countCharacters("I want to be a millonaire", true, 0)).toBe(20);
+    expect(countCharacters("I want to be a millonaire", true)).toBe(20);
   });
 
   //test for empty input
   test("test for empty input", () => {
-    expect(countCharacters("", false, 0)).toBe(0);
+    expect(countCharacters("", false)).toBe(0);
   });
 
   //test for excessive white space
   test("test for excessive white space", () => {
-    expect(countCharacters("     ", true, 0)).toBe(0);
+    expect(countCharacters("     ", true)).toBe(0);
   });
 
   //test for special characters
   test("test for special characters", () => {
-    expect(countCharacters("!@#$%^&*()_+", false, 0)).toBe(12);
+    expect(countCharacters("!@#$%^&*()_+", false)).toBe(12);
   });
 });
