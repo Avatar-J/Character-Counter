@@ -1,4 +1,15 @@
-const body = `
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png" />
+  <link rel="stylesheet" href="../css/main.css" />
+
+  <title>Character counter</title>
+</head>
 
 <body>
   <div class="wrapper">
@@ -21,8 +32,9 @@ const body = `
       <section class="main-wrapper">
         <textarea placeholder="Start typing here… (or paste your text)" id="text-area" class="text-area"></textarea>
 
-        <div id="error-message" class="exceed-message">
-
+        <div id="error-message" class="exceed-message" style="display: none;">
+          <img src="../assets/images/icon-info.svg" alt="info icon" width="14px" height="18px" />
+          <p>Limit reached! Your text exceeds <span id="limit-value"></span> characters</p>
         </div>
 
         <div class="options-container">
@@ -41,7 +53,7 @@ const body = `
 
           <div class="reading-time">
             Approx. reading time:<!-- Insert number -->
-            <span id="approx-time"></span>minutes
+            <span id="approx-time">0 </span>minutes
           </div>
         </div>
       </section>
@@ -111,9 +123,8 @@ const body = `
   </section>
   </main>
   </div>
-  <!-- <script src="../scripts/script.js"></script> -->
-  <script src="../scripts/index.js"></script>
+  <script src="../scripts/script.js"></script>
+  <!-- <script src="../scripts/index.js"></script> -->
 </body>
-`;
 
-module.exports = body;
+</html>

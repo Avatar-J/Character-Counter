@@ -6,6 +6,7 @@ const {
   countSentences,
   countCharacters,
   calculateReadingTime,
+  displayErrorMessage,
 } = require("../scripts/index.js");
 
 //test for setting maxlength of text area
@@ -75,6 +76,7 @@ describe("Test should correctly count words, characters and sentences", () => {
   });
 });
 
+//test for reading time
 describe("Test for approximate reading time", () => {
   test("test reading time when words are less than 200", () => {
     expect(calculateReadingTime("00")).toBe(0);
@@ -89,6 +91,7 @@ describe("Test for approximate reading time", () => {
   });
 });
 
+//testing for updates in DOM when user types in text area
 describe("counters should update when event is triggered when user types", () => {
   beforeEach(() => {
     document.body.innerHTML = `
@@ -131,3 +134,34 @@ describe("counters should update when event is triggered when user types", () =>
     expect(sentenceCountContainer.textContent).toBe("02");
   });
 });
+
+//testing for warning message when limit is reached
+// describe("testing for warning message", () => {
+//   beforeEach(() => {
+//     document.body.innerHTML = `
+//          <div id="error-message" class="exceed-message">
+//           <img src="../assets/images/icon-info.svg" alt="info icon" width="14px" height="18px" />
+//           <p>Limit reached! Your text exceeds <span id="limit-value"></span> characters</p>
+//         </div>
+//     `;
+//   });
+
+//   afterEach(() => {
+//     document.body.innerHTML = "";
+//   });
+
+//   test("show warning message when limit is exceeded  ", () => {
+//     const errorMessageContainer = document.getElementById("error-message");
+//     const limitValueContainer = document.getElementById("limit-value");
+//     displayErrorMessage(
+//       "I want to be a millonaire. I want to travel the world.",
+//       true,
+//       false,
+//       8
+//     );
+//     //expect(errorMessageContainer.style.display).toBe("block");
+//     expect(limitValueContainer.textContent).toBe("10");
+//     expect(textArea.classList.contains("error-state")).toBe(true);
+//     expect(textArea.classList.contains("text-area")).toBe(false);
+//   });
+// });

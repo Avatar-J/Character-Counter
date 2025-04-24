@@ -125,10 +125,15 @@ function displayErrorMessage(
   if (isSetCharacterLimitChecked) {
     if (limit !== "") {
       if (count > limit) {
-        limitValueContainer.textContent = limit;
-        errorMessageContainer.style.display = "block";
-        textArea.classList.add("error-state");
-        textArea.classList.remove("text-area");
+        if (limitValueContainer) {
+          limitValueContainer.textContent = limit;
+        }
+        if (errorMessageContainer) {
+          errorMessageContainer.style.display = "block";
+        }
+
+        textArea?.classList.add("error-state");
+        textArea?.classList.remove("text-area");
       } else {
         errorStyleRemove();
       }
@@ -218,4 +223,5 @@ module.exports = {
   countSentences,
   countCharacters,
   calculateReadingTime,
+  displayErrorMessage,
 };
