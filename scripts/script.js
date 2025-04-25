@@ -316,5 +316,3 @@ window.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-
-module.exports = { setMaxLength };

@@ -1,5 +1,5 @@
 "use strict";
-
+//variable for text area section
 const textArea = document.getElementById("text-area");
 const charCountContainer = document.getElementById("char-count");
 const wordCountContainer = document.getElementById("word-count");
@@ -15,10 +15,25 @@ let isExcludeSpaceChecked = false;
 let isSetCharacterLimitChecked = false;
 let limit = "";
 
+//variables for letter density section
+const fiveLetterDensityWrapper = document.getElementById("five-letter-density");
+const restLetterDensityWrapper = document.getElementById("rest-letter-density");
+const buttonContainer = document.querySelector(".sm-btn");
+let isSeeMoreClicked = false;
+let fiveLetterPercentages = {};
+let restLetterPercentages = {};
+const fiveLetterDensityHTML = {};
+const restLetterDensityHTML = {};
+let fiveLetterDensity = {};
+let restLetterDensity = {};
+let letterFrequencySorted = {};
+let totalCharacters = 0;
+
+//when page loads or refreshes
 if (errorMessageContainer) {
   errorMessageContainer.style.display = "none";
 }
-// errorMessageContainer.style.display = "none";
+
 //background theme change
 const themeSwitch = document.getElementById("theme-switch");
 
@@ -142,6 +157,7 @@ function displayErrorMessage(
     }
   }
 }
+
 //event handlers on checkboxes
 excludeSpacesToggle?.addEventListener("change", (event) => {
   isExcludeSpaceChecked = event.target.checked;
@@ -205,8 +221,9 @@ textArea?.addEventListener("input", (event) => {
   sentenceCountContainer.textContent = countSentences(textValue);
 
   //display the reading time
-  this.document.getElementById("approx-time").textContent =
-    calculateReadingTime(countWords(textValue));
+  document.getElementById("approx-time").textContent = calculateReadingTime(
+    countWords(textValue)
+  );
 
   //check if limit is exceeded and display warning message
   displayErrorMessage(
@@ -215,6 +232,144 @@ textArea?.addEventListener("input", (event) => {
     isExcludeSpaceChecked,
     limit
   );
+
+  //show letter density
+  countLetters(textValue);
+
+  //show letter density section when text area is not empty
+  if (textValue.length > 0) {
+    emptyText.innerHTML = "";
+    buttonContainer.classList.remove("hidden");
+  } else {
+    emptyText.innerHTML = `<p>No characters found. Start typing to see letter density</p>`;
+    buttonContainer.classList.add("hidden");
+  }
+});
+
+//when you first load page and text area is empty
+const emptyText = document.querySelector(".empty-textarea");
+
+//function to sort letter count in descending order
+function sortInDescendingOrder(obj) {
+  let sortedObject = Object.fromEntries(
+    Object.entries(obj).sort(([, a], [, b]) => b - a)
+  );
+  return sortedObject;
+}
+
+//function to separate the see more letter density section
+function divideLetterFrequency(obj) {
+  const entries = Object.entries(obj);
+  fiveLetterDensity = Object.fromEntries(entries.slice(0, 5));
+  restLetterDensity = Object.fromEntries(entries.slice(5));
+}
+
+//function to calculate the letter density percentage
+function calcLetterDensityPercentage(halfdensity, halfPercentage) {
+  for (const letter in halfdensity) {
+    halfPercentage[letter] = (
+      (halfdensity[letter] / totalCharacters) *
+      100
+    ).toFixed(2);
+  }
+}
+
+//function to show letter density
+function renderLetterDensity(htmlId, densityObj, densityHTML, percentageObj) {
+  htmlId.innerHTML = ""; // Clear previous content
+  for (const letter in densityObj) {
+    densityHTML[letter] = `
+            <div class="ld-letter">
+              <span class="letter">${letter}</span>
+              <div class="ld-percentage">
+                <div class="percentage" style="width: ${percentageObj[letter]}%"></div>
+              </div>
+              <span class="value">${densityObj[letter]}(${percentageObj[letter]}%)</span>
+            </div>
+          `;
+  }
+  for (const letter in densityObj) {
+    htmlId.innerHTML += densityHTML[letter];
+  }
+}
+
+//function to count letters in the text
+function countLetters(textValue) {
+  if (textValue.trim() != "") {
+    const converttoUpperCase = textValue.toUpperCase();
+    let letterFrequency = {};
+    totalCharacters = 0;
+
+    for (let i = 0; i < converttoUpperCase.length; i++) {
+      const letter = converttoUpperCase[i];
+      if (letter >= "A" && letter <= "Z") {
+        totalCharacters++;
+        if (letterFrequency[letter]) {
+          letterFrequency[letter]++;
+        } else {
+          letterFrequency[letter] = 1;
+        }
+      }
+    }
+
+    letterFrequencySorted = sortInDescendingOrder(letterFrequency);
+
+    divideLetterFrequency(letterFrequencySorted);
+
+    calcLetterDensityPercentage(fiveLetterDensity, fiveLetterPercentages);
+    renderLetterDensity(
+      fiveLetterDensityWrapper,
+      fiveLetterDensity,
+      fiveLetterDensityHTML,
+      fiveLetterPercentages
+    );
+    if (isSeeMoreClicked) {
+      calcLetterDensityPercentage(restLetterDensity, restLetterPercentages);
+      renderLetterDensity(
+        restLetterDensityWrapper,
+        restLetterDensity,
+        restLetterDensityHTML,
+        restLetterPercentages
+      );
+    } else {
+      restLetterDensityWrapper.innerHTML = "";
+    }
+  } else {
+    //clear everything if textArea is empty
+    fiveLetterDensity = {};
+    restLetterDensity = {};
+    letterFrequencySorted = {};
+    totalCharacters = 0;
+
+    fiveLetterDensityWrapper.innerHTML = "";
+    restLetterDensityWrapper.innerHTML = "";
+
+    fiveLetterPercentages = {};
+    restLetterPercentages = {};
+  }
+}
+
+document.querySelector(".sm-btn")?.addEventListener("click", () => {
+  isSeeMoreClicked = !isSeeMoreClicked;
+
+  //show the rest of the letter density
+  if (isSeeMoreClicked) {
+    document.getElementById("see").innerHTML = "See less";
+    document.getElementById("up").style.display = "none";
+    document.getElementById("down").style.display = "block";
+    calcLetterDensityPercentage(restLetterDensity, restLetterPercentages);
+    renderLetterDensity(
+      restLetterDensityWrapper,
+      restLetterDensity,
+      restLetterDensityHTML,
+      restLetterPercentages
+    );
+  } else {
+    restLetterDensityWrapper.innerHTML = "";
+    document.getElementById("see").innerHTML = "See more";
+    document.getElementById("up").style.display = "block";
+    document.getElementById("down").style.display = "none";
+  }
 });
 
 module.exports = {

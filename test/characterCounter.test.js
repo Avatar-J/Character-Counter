@@ -136,32 +136,35 @@ describe("counters should update when event is triggered when user types", () =>
 });
 
 //testing for warning message when limit is reached
-// describe("testing for warning message", () => {
-//   beforeEach(() => {
-//     document.body.innerHTML = `
-//          <div id="error-message" class="exceed-message">
-//           <img src="../assets/images/icon-info.svg" alt="info icon" width="14px" height="18px" />
-//           <p>Limit reached! Your text exceeds <span id="limit-value"></span> characters</p>
-//         </div>
-//     `;
-//   });
+describe("testing for warning message", () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+    <textarea id="text-area" ></textarea>
+         <div id="error-message" class="exceed-message">
+          <img src="../assets/images/icon-info.svg" alt="info icon" width="14px" height="18px" />
+          <p>Limit reached! Your text exceeds <span id="limit-value"></span> characters</p>
+        </div>
+    `;
+  });
 
-//   afterEach(() => {
-//     document.body.innerHTML = "";
-//   });
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
 
-//   test("show warning message when limit is exceeded  ", () => {
-//     const errorMessageContainer = document.getElementById("error-message");
-//     const limitValueContainer = document.getElementById("limit-value");
-//     displayErrorMessage(
-//       "I want to be a millonaire. I want to travel the world.",
-//       true,
-//       false,
-//       8
-//     );
-//     //expect(errorMessageContainer.style.display).toBe("block");
-//     expect(limitValueContainer.textContent).toBe("10");
-//     expect(textArea.classList.contains("error-state")).toBe(true);
-//     expect(textArea.classList.contains("text-area")).toBe(false);
-//   });
-// });
+  test("show warning message when limit is exceeded  ", () => {
+    const textArea = document.getElementById("text-area");
+    const errorMessageContainer = document.getElementById("error-message");
+    const limitValueContainer = document.getElementById("limit-value");
+    displayErrorMessage(
+      "I want to be a millonaire. I want to travel the world.",
+      true,
+      false,
+      8
+    );
+
+    //expect(errorMessageContainer.style.display).toBe("block");
+    expect(limitValueContainer.textContent).toBe("8");
+    expect(textArea.classList.contains("error-state")).toBe(true);
+    // expect(textArea.classList.contains("text-area")).toBe(false);
+  });
+});
