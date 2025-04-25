@@ -166,7 +166,7 @@ textarea {
   padding: 20px;
   resize: none;
   color: var(--font-color);
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   border-radius: 12px;
   border: 1px solid var(--progress-bar-bg);
 }
@@ -191,6 +191,8 @@ textarea::placeholder {
   align-items: start;
   color: #DA3701;
   margin-bottom: 10px;
+  /* min-height: 21px;
+  line-height: 21px; */
 
 }
 
@@ -220,17 +222,24 @@ textarea::placeholder {
   gap: 8px;
 }
 
-/* .checkbox:nth-child(1) {
-  margin-left: -2rem;
-} */
+.check-container {
+  border: 1px solid var(--font-color);
+  width: 16px;
+  height: 16px;
+  border-radius: 6px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: var(--purple);
+
+}
 
 input[type="checkbox"],
 input[type="number"],
 label,
 textarea:hover {
   cursor: pointer;
-  /* display: inline-block; */
-  /* line-height: 21px; */
+
 }
 
 input[type="checkbox"],
@@ -240,7 +249,7 @@ input[type="number"] {
   border: 1px solid var(--font-color);
   width: 16px;
   height: 16px;
-  border-radius: 4px;
+  border-radius: 5px;
   align-items: center;
   color: var(--font-color);
 }
@@ -361,14 +370,15 @@ section {
   gap: 1.9%;
   height: 21px;
   max-width: 100%;
-  gap: 12px;
+  gap: 0px;
   font-size: var(--text-preset4);
 }
 
 .ld-percentage {
   background-color: var(--progress-bar-bg);
   height: 12px;
-  width: 85.9%;
+  /* width: 83%; */
+  flex: 1;
   border-radius: 12px;
   margin: 0 14px;
 }
@@ -385,7 +395,7 @@ section {
 }
 
 .value {
-  /* width: 8.7%; */
+  width: 9%;
   text-align: right;
   white-space: nowrap;
 }

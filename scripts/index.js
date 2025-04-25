@@ -29,11 +29,6 @@ let restLetterDensity = {};
 let letterFrequencySorted = {};
 let totalCharacters = 0;
 
-//when page loads or refreshes
-if (errorMessageContainer) {
-  errorMessageContainer.style.display = "none";
-}
-
 //background theme change
 const themeSwitch = document.getElementById("theme-switch");
 
@@ -124,9 +119,13 @@ function calculateReadingTime(words) {
 }
 //test area outline for error state
 function errorStyleRemove() {
-  errorMessageContainer.style.display = "none";
-  textArea.classList.remove("error-state");
-  textArea.classList.add("text-area");
+  if (errorMessageContainer) {
+    errorMessageContainer.innerHTML = "";
+  }
+  if (textArea) {
+    textArea.classList.remove("error-state");
+    textArea.classList.add("text-area");
+  }
 }
 //function to display error message when limit is exceeded
 function displayErrorMessage(
@@ -140,15 +139,15 @@ function displayErrorMessage(
   if (isSetCharacterLimitChecked) {
     if (limit !== "") {
       if (count > limit) {
-        if (limitValueContainer) {
-          limitValueContainer.textContent = limit;
-        }
         if (errorMessageContainer) {
-          errorMessageContainer.style.display = "block";
+          errorMessageContainer.innerHTML = `<img src="../assets/images/icon-info.svg" alt="info icon" width="14px" height="18px" style="min-height: 21px; line-height: 21px"/>
+          <p>Limit reached! Your text exceeds <span id="limit-value">${limit}</span> characters</p>`;
         }
 
-        textArea?.classList.add("error-state");
-        textArea?.classList.remove("text-area");
+        if (textArea) {
+          textArea.classList.add("error-state");
+          textArea.classList.remove("text-area");
+        }
       } else {
         errorStyleRemove();
       }
@@ -284,7 +283,7 @@ function renderLetterDensity(htmlId, densityObj, densityHTML, percentageObj) {
               <div class="ld-percentage">
                 <div class="percentage" style="width: ${percentageObj[letter]}%"></div>
               </div>
-              <span class="value">${densityObj[letter]}(${percentageObj[letter]}%)</span>
+              <span class="value" style="text-align: right">${densityObj[letter]}(${percentageObj[letter]}%)</span>
             </div>
           `;
   }
