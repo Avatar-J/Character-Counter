@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
-  <link rel="stylesheet" href="main.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png" />
+  <link rel="stylesheet" href="../css/main.css" />
 
   <title>Character counter</title>
 </head>
@@ -14,12 +14,13 @@
 <body>
   <div class="wrapper">
     <header class="nav-title">
-      <img src="./assets/images/logo-light-theme.svg" />
-      <img src="./assets/images/logo-dark-theme.svg" />
+
+      <img src="../assets/images/logo-light-theme.svg" />
+      <img src="../assets/images/logo-dark-theme.svg" />
 
       <button id="theme-switch">
-        <img src="./assets/images/icon-moon.svg" />
-        <img src="./assets/images/icon-sun.svg" />
+        <img src="../assets/images/icon-moon.svg" />
+        <img src="../assets/images/icon-sun.svg" />
       </button>
     </header>
 
@@ -31,9 +32,7 @@
       <section class="main-wrapper">
         <textarea placeholder="Start typing here… (or paste your text)" id="text-area" class="text-area"></textarea>
 
-        <div id="error-message" class="exceed-message">
-
-        </div>
+        <div id="error-message" class="exceed-message"></div>
 
         <div class="options-container">
           <div class="exclude">
@@ -51,7 +50,7 @@
 
           <div class="reading-time">
             Approx. reading time:<!-- Insert number -->
-            <span id="approx-time"></span>minutes
+            <span id="approx-time">0</span> minutes
           </div>
         </div>
       </section>
@@ -60,7 +59,7 @@
       <section class="stats-section">
         <div class="counts-container">
           <div class="stat-box char-count">
-            <img src="./assets/images/pattern-character-count.svg" alt="character pattern" />
+            <img src="../assets/images/pattern-character-count.svg" alt="character pattern" />
             <!-- Insert number -->
             <div class="start-value" id="char-count">00</div>
             <div class="start-title">Total Characters</div>
@@ -68,14 +67,14 @@
 
           <div class="stat-box word-count">
             <!-- Insert number -->
-            <img src="./assets/images/pattern-word-count.svg" alt="word pattern" />
+            <img src="../assets/images/pattern-word-count.svg" alt="word pattern" />
             <div class="start-value" id="word-count">00</div>
             <div class="start-title">Word Count</div>
           </div>
 
           <div class="stat-box sentence-count">
             <!-- Insert number -->
-            <img src="./assets/images/pattern-sentence-count.svg" alt="sentence pattern" />
+            <img src="../assets/images/pattern-sentence-count.svg" alt="sentence pattern" />
             <div class="start-value" id="sentence-count">00</div>
             <div class="start-title">Sentence Count</div>
           </div>
@@ -121,7 +120,7 @@
   </section>
   </main>
   </div>
-  <script src="script.js"></script>
+  <script src="../scripts/index.js"></script>
 </body>
 
 </html>

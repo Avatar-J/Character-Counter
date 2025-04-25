@@ -1,9 +1,13 @@
 {
   "name": "character-counter",
   "version": "1.0.0",
+  "description": "A responsive web application that allows users to analyze their text in real-time. The application \r provides features such as character counting, word counting, sentence counting, letter density analysis, \r and approximate reading time calculation.",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   },
   "repository": {
     "type": "git",
@@ -16,5 +20,9 @@
     "url": "https://github.com/Avatar-J/Character-Counter/issues"
   },
   "homepage": "https://github.com/Avatar-J/Character-Counter#readme",
-  "description": ""
+  "dependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+
 }
