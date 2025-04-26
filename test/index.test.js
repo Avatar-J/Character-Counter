@@ -1,25 +1,20 @@
-/**
- * @jest-environment jsdom
- */
-
 "use strict";
 
 const {
+  setMaxLength,
   countWords,
   countSentences,
   countCharacters,
   calculateReadingTime,
-  setMaxLength,
   displayErrorMessage,
-  updateCharCounter,
-} = require("../scripts/utils.js");
+} = require("../scripts/index.js");
 
 //test for setting maxlength of text area
 describe("setting the maxlength attribute of text area", () => {
   beforeEach(() => {
     document.body.innerHTML = `
-          <textarea id="text-area" ></textarea>
-      `;
+        <textarea id="text-area" ></textarea>
+    `;
   });
 
   afterEach(() => {
@@ -81,21 +76,6 @@ describe("Test should correctly count words, characters and sentences", () => {
   });
 });
 
-//update character counter
-describe("Test for updating character counter when typing", () => {
-  beforeEach(() => {
-    document.body.innerHTML = `
-              <div id="char-count">00</div>
-          `;
-  });
-
-  test("update when excludeSpace is toggled", () => {
-    const charCountContainer = document.getElementById("char-count");
-    updateCharCounter("I want to be a millonaire", true);
-    expect(charCountContainer.textContent).toBe("20");
-  });
-});
-
 //test for reading time
 describe("Test for approximate reading time", () => {
   test("test reading time when words are less than 200", () => {
@@ -111,15 +91,59 @@ describe("Test for approximate reading time", () => {
   });
 });
 
+//testing for updates in DOM when user types in text area
+describe("counters should update when event is triggered when user types", () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+        <textarea id="text-area" ></textarea>
+         <div id="char-count">00</div>
+         <div id="word-count">00</div>
+         <div id="sentence-count">00</div>
+    `;
+    require("../scripts/index.js");
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
+  test("test character update", () => {
+    const charCountContainer = document.getElementById("char-count");
+    const textArea = document.getElementById("text-area");
+    textArea.value = "I want to be a millonaire. I want to travel the world.";
+    textArea.dispatchEvent(new Event("input"));
+    charCountContainer.textContent = countCharacters(textArea.value, false);
+    expect(charCountContainer.textContent).toBe("54");
+  });
+
+  test("test word update", () => {
+    const wordCountContainer = document.getElementById("word-count");
+    const textArea = document.getElementById("text-area");
+    textArea.value = "I want to be a millonaire. I want to travel the world.";
+    textArea.dispatchEvent(new Event("input"));
+    wordCountContainer.textContent = countWords(textArea.value);
+    expect(wordCountContainer.textContent).toBe("12");
+  });
+
+  test("test sentence update", () => {
+    const sentenceCountContainer = document.getElementById("sentence-count");
+    const textArea = document.getElementById("text-area");
+    textArea.value = "I want to be a millonaire. I want to travel the world.";
+    textArea.dispatchEvent(new Event("input"));
+    sentenceCountContainer.textContent = countSentences(textArea.value);
+    expect(sentenceCountContainer.textContent).toBe("02");
+  });
+});
+
 //testing for warning message when limit is reached
 describe("testing for warning message", () => {
   beforeEach(() => {
     document.body.innerHTML = `
-          <textarea id="text-area" ></textarea>
-           <div id="error-message">
-            
-          </div>
-      `;
+        <textarea id="text-area" ></textarea>
+         <div id="error-message">
+          
+        </div>
+    `;
   });
 
   afterEach(() => {
@@ -137,56 +161,5 @@ describe("testing for warning message", () => {
     );
 
     expect(errorMessageContainer.innerHTML).toContain("");
-  });
-});
-
-//testing for updates in DOM when user types in text area
-describe("counters should update when event is triggered when user types", () => {
-  let textArea;
-  let charCountContainer;
-  let wordCountContainer;
-  let sentenceCountContainer;
-
-  beforeEach(() => {
-    document.body.innerHTML = `
-        <textarea id="text-area"></textarea>
-        <span id="approx-time">0</span>
-        <div id="char-count">00</div>
-        <div id="word-count">00</div>
-        <div id="sentence-count">00</div>
-      `;
-
-    require("../scripts/utils.js");
-
-    textArea = document.getElementById("text-area");
-    charCountContainer = document.getElementById("char-count");
-    wordCountContainer = document.getElementById("word-count");
-    sentenceCountContainer = document.getElementById("sentence-count");
-
-    textArea.value = "I want to be a millonaire. I want to travel the world.";
-    textArea.dispatchEvent(new Event("input"));
-  });
-
-  test("test character update", () => {
-    charCountContainer.textContent = countCharacters(textArea.value, false);
-    expect(charCountContainer.textContent).toBe("54");
-  });
-
-  test("test word update", () => {
-    wordCountContainer.textContent = countWords(textArea.value);
-    expect(wordCountContainer.textContent).toBe("12");
-  });
-
-  test("test sentence update", () => {
-    sentenceCountContainer.textContent = countSentences(textArea.value);
-    expect(sentenceCountContainer.textContent).toBe("02");
-  });
-
-  test("test reading time update", () => {
-    const readingTimeContainer = document.getElementById("approx-time");
-    readingTimeContainer.textContent = calculateReadingTime(
-      countWords(textArea.value)
-    );
-    expect(readingTimeContainer.textContent).toBe("1");
   });
 });
