@@ -390,12 +390,14 @@ section {
 }
 
 .letter {
-  width: 1.6%;
+  /* width: 1.6%; */
+  flex: 0 0 20px;
   text-align: left;
 }
 
 .value {
-  width: 9%;
+  flex: 0 0 90px;
+  /* width: 9%; */
   text-align: right;
   white-space: nowrap;
 }
