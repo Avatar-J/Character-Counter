@@ -141,7 +141,7 @@ function displayErrorMessage(
       if (count > limit) {
         if (errorMessageContainer) {
           errorMessageContainer.innerHTML = `<img src="../assets/images/icon-info.svg" alt="info icon" width="14px" height="18px" style="min-height: 21px; line-height: 21px"/>
-          <p>Limit reached! Your text exceeds <span id="limit-value">${limit}</span> characters</p>`;
+          <p id="warning">Limit reached! Your text exceeds ${limit} characters</p>`;
         }
 
         if (textArea) {

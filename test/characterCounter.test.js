@@ -117,7 +117,8 @@ describe("testing for warning message", () => {
     document.body.innerHTML = `
           <textarea id="text-area" ></textarea>
            <div id="error-message">
-            
+             <img/>
+             <p id="warning">Limit reached! Your text exceeds</p>
           </div>
       `;
   });
@@ -125,10 +126,21 @@ describe("testing for warning message", () => {
   afterEach(() => {
     document.body.innerHTML = "";
   });
-
   test("show warning message when limit is exceeded  ", () => {
-    const errorMessageContainer = document.getElementById("error-message");
+    const warningMessage = document.getElementById("warning");
+    displayErrorMessage(
+      "I want to be a millonaire. I want to travel the world.",
+      true,
+      false,
+      40
+    );
 
+    expect(warningMessage.innerHTML).toContain("Limit reached!");
+  });
+
+  test("warning should not show if within range", () => {
+    const errorMessageContainer = document.getElementById("error-message");
+    const textArea = document.getElementById("text-area");
     displayErrorMessage(
       "I want to be a millonaire. I want to travel the world.",
       true,
@@ -137,6 +149,7 @@ describe("testing for warning message", () => {
     );
 
     expect(errorMessageContainer.innerHTML).toContain("");
+    expect(textArea.classList.contains("error-state")).toBeFalsy();
   });
 });
 
